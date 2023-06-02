@@ -2,11 +2,11 @@
   "name": "expressjs-api",
   "version": "1.0.0",
   "description": "Simple Api Using express JS Framework",
-  "main": "app.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
   "author": "Pallab Majumdar",
   "license": "ISC",
