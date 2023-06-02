@@ -1,23 +1,15 @@
-import express from "express";
-import mongoose from "mongoose";
-import "dotenv/config";
-const app = express();
+import express, { json } from "express";
+import userRouter from "./routes/user/user.js";
+import { connectDB } from "./configs/database/databaseConnection.js";
+export const app = express();
 
-const dbConnectionString = process.env.MONGODB_CONNECTION_STRING;
-const port = process.env.PORT;
-mongoose
-  .connect(dbConnectionString)
-  .then(() => {
-    console.log("database connected");
-  })
-  .catch((e) => {
-    console.log(e);
-  });
+app.use(json());
 
-app.get("/", (req, res) => {
+
+app.get("/", (_, res) => {
   res.send("hello pallab");
 });
 
-app.listen(port, () => {
-  console.log("server is running");
-});
+app.use("/api/v1/user", userRouter);
+
+
