@@ -1,23 +1,25 @@
-import express from "express";
-import mongoose from "mongoose";
-import "dotenv/config";
-const app = express();
+import express, { json } from "express";
+import cookieParser from "cookie-parser";
+import userRouter from "./routes/user/user.js";
+import taskRouter from "./routes/task/task.js";
+import cors from "cors";
+import { errorMiddleware } from "./middlewares/error.js";
+export const app = express();
 
-const dbConnectionString = process.env.MONGODB_CONNECTION_STRING;
-const port = process.env.PORT;
-mongoose
-  .connect(dbConnectionString)
-  .then(() => {
-    console.log("database connected");
+app.use(json());
+app.use(cookieParser());
+app.use(
+  cors({
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
   })
-  .catch((e) => {
-    console.log(e);
-  });
+);
 
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   res.send("hello pallab");
 });
 
-app.listen(port, () => {
-  console.log("server is running");
-});
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/task", taskRouter);
+
+app.use(errorMiddleware);
