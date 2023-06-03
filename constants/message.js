@@ -1,0 +1,1 @@
+export const REGSUCCESSFUL="User Registered Successfully"
